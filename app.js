@@ -4,6 +4,8 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
+const compression = require("compression");
+const helmet = require("helmet");
 
 const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
@@ -13,12 +15,14 @@ var app = express();
 
 // Setting up mongoose connection
 const mongoose = require("mongoose");
-const mongoDb = 'mongodb+srv://user:pass@clusterswio.taiqmjc.mongodb.net/local_library?retryWrites=true&w=majority'
+const mongoDb = process.env.MONGODB_URI;
 mongoose.connect(mongoDb, { useNewUrlParser: true, useUnifiedTopology: true });
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "MongoDB connection error."))
 
 
+app.use(compression()); // Compress all routes
+app.use(helmet());
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
