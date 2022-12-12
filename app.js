@@ -4,6 +4,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
+
 const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
 const catalogRouter = require("./routes/catalog"); //Import routes for "catalog" area of site
@@ -12,7 +13,7 @@ var app = express();
 
 // Setting up mongoose connection
 const mongoose = require("mongoose");
-const mongoDb = 'mongodb+srv://swio:swio@clusterswio.taiqmjc.mongodb.net/local_library?retryWrites=true&w=majority'
+const mongoDb = 'mongodb+srv://user:pass@clusterswio.taiqmjc.mongodb.net/local_library?retryWrites=true&w=majority'
 mongoose.connect(mongoDb, { useNewUrlParser: true, useUnifiedTopology: true });
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "MongoDB connection error."))
